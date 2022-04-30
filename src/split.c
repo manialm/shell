@@ -1,5 +1,4 @@
 #include <str_array.h>
-#include <stdio.h>
 #include <string.h>
 
 str_array *split(char str[]) {

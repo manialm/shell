@@ -24,7 +24,6 @@ void exec_comm(char comm[]) {
 
     if (pid == 0) {
         str_array *arr = split(comm);
-        str_array_print(arr);
         char **argv = arr->data;
         execvp(argv[0], argv);
     } else {
