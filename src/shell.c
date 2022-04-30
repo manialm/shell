@@ -3,9 +3,12 @@
 #include <stdbool.h>
 #include <sys/wait.h>
 #include <string.h>
+
+#include <str_array.h>
+#include <split.h>
 #include <color.h>
 
-#define MAXLEN 1000
+const int MAXLEN = 1024;
 
 void show_prompt() {
     PRINT_COLOR(BLUE, "$ ");
@@ -20,8 +23,10 @@ void exec_comm(char comm[]) {
     pid_t pid = fork();
 
     if (pid == 0) {
-        char *argv[] = { comm, NULL };
-        execvp(comm, argv);
+        str_array *arr = split(comm);
+        str_array_print(arr);
+        char **argv = arr->data;
+        execvp(argv[0], argv);
     } else {
         wait(NULL);
     }
