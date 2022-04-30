@@ -3,11 +3,12 @@
 #include <stdbool.h>
 #include <sys/wait.h>
 #include <string.h>
+#include <color.h>
 
 #define MAXLEN 1000
 
 void show_prompt() {
-    printf("shell> ");
+    PRINT_COLOR(BLUE, "$ ");
 }
 
 void get_comm(char comm[]) {
