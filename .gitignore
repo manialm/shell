@@ -1,0 +1,8 @@
+.vscode/
+out/
+
+*.txt
+*.out
+*.pdf
+
+test.c
