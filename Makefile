@@ -1,12 +1,30 @@
-SRC=shell
+TARGET=shell
 
-INCLUDEDIR = ./include/
+CC = gcc
 
-FLAGS = -I $(INCLUDEDIR)
+BUILD_DIR := ./build
+SRC_DIRS := ./src
 
-all: main
-	@out/$(SRC)
+SRCS := $(shell find $(SRC_DIRS) -name '*.c')
+OBJS := $(SRCS:%=$(BUILD_DIR)/%.o)
 
-main: src/$(SRC).c
-	@mkdir -p out/
-	@gcc $(FLAGS) src/$(SRC).c -o out/$(SRC)
+INCLUDE_DIR := include/
+INCLUDES := -I $(INCLUDE_DIR)
+WARNINGS := -Werror -Wall -Wpedantic
+
+FLAGS := $(INCLUDES)
+FLAGS += $(WARNINGS)
+
+all: $(BUILD_DIR)/$(TARGET)
+	@$(BUILD_DIR)/$(TARGET)
+
+$(BUILD_DIR)/$(TARGET): $(OBJS)
+	@$(CC) $(OBJS) -o $@
+
+$(BUILD_DIR)/%.c.o: %.c
+	@mkdir -p $(dir $@)
+	@$(CC) $(FLAGS) -c $< -o $@
+
+.PHONY: clean
+clean:
+	/bin/rm -r $(BUILD_DIR)
