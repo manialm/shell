@@ -1,7 +1,12 @@
 SRC=shell
 
+INCLUDEDIR = ./include/
+
+FLAGS = -I $(INCLUDEDIR)
+
 all: main
-	@./out/$(SRC)
+	@out/$(SRC)
 
 main: src/$(SRC).c
-	@gcc src/$(SRC).c -o out/$(SRC)
+	@mkdir -p out/
+	@gcc $(FLAGS) src/$(SRC).c -o out/$(SRC)
