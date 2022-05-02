@@ -40,6 +40,19 @@ void str_array_pop(str_array *this) {
     }
 }
 
+void str_array_destroy(str_array *this) {
+    // free each string
+    for (int i = 0; i < this->size; i++) {
+        free(this->data[i]);
+    }
+    
+    // free pointers to strings
+    free(this->data);
+    
+    this->size = 0;
+    this->cap = 2;
+}
+
 void str_array_print(str_array *this) {
     for (int i = 0; i < this->size; i++) {
         printf("%s\n", this->data[i]);

@@ -15,5 +15,6 @@ extern str_array *str_array_new(void);
 extern void str_array_append(str_array *this, char *str);
 extern void str_array_pop(str_array *this);
 extern void str_array_print(str_array *this);
+extern void str_array_destroy(str_array *this);
 
 #endif /* STR_ARRAY_H */

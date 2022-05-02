@@ -28,4 +28,10 @@ int main() {
     str_array_append(array, "e");
     str_array_append(array, "f");
     str_array_print(array);
+
+    str_array_destroy(array);
+
+    str_array_print(array);
+    printf("%zu\n", array->size);
+    
 }
