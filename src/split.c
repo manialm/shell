@@ -8,7 +8,7 @@ str_array *split(char str[]) {
     str_array *res = str_array_new();
     size_t word_i = 0;
 
-    for (int i = 0; str[i]; i++) {
+    for (size_t i = 0; str[i]; i++) {
         switch (str[i]) {
             case ' ':
                 word[word_i] = 0;

@@ -20,7 +20,7 @@ void str_array_append(str_array *this, char *str) {
         this->data = realloc(this->data, sizeof(*this->data) * this->cap);
     }
 
-    int n = strlen(str);
+    size_t n = strlen(str);
     char *copy = malloc(sizeof(*copy) * n);
     strncpy(copy, str, n);
     this->data[this->size++] = copy;
@@ -42,7 +42,7 @@ void str_array_pop(str_array *this) {
 
 void str_array_destroy(str_array *this) {
     // free each string
-    for (int i = 0; i < this->size; i++) {
+    for (size_t i = 0; i < this->size; i++) {
         free(this->data[i]);
     }
     
@@ -54,7 +54,7 @@ void str_array_destroy(str_array *this) {
 }
 
 void str_array_print(str_array *this) {
-    for (int i = 0; i < this->size; i++) {
+    for (size_t i = 0; i < this->size; i++) {
         printf("%s\n", this->data[i]);
     }
 }
