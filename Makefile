@@ -6,8 +6,8 @@ SUBDIRS := parser
 BUILD_DIR := build
 SOURCE_DIR := src
 
-SRCS := $(shell find $(SOURCE_DIR)/ -type f -name '*.c')
-OBJS := $(SRCS:$(SOURCE_DIR)/%=$(BUILD_DIR)/%.o)
+SRCS = $(shell find $(SOURCE_DIR)/ -type f -name '*.c')
+OBJS = $(SRCS:$(SOURCE_DIR)/%=$(BUILD_DIR)/%.o)
 
 INCLUDE_DIR := include
 INCLUDES := -I $(INCLUDE_DIR)
@@ -29,6 +29,7 @@ parser:
 
 $(BUILD_DIR)/%.c.o: $(SOURCE_DIR)/%.c
 	@mkdir -p $(dir $@)
+	@echo these are objs $(OBJS)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 .PHONY: clean
