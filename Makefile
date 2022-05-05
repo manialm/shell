@@ -1,30 +1,40 @@
-TARGET=shell
+TARGET = shell
 
 CC = gcc
 
-BUILD_DIR := ./build
-SRC_DIRS := ./src
+SUBDIRS := parser
+BUILD_DIR := build
+SOURCE_DIR := src
 
-SRCS := $(shell find $(SRC_DIRS) -name '*.c')
-OBJS := $(SRCS:%=$(BUILD_DIR)/%.o)
+SRCS := $(shell find $(SOURCE_DIR)/ -type f -name '*.c')
+OBJS := $(SRCS:$(SOURCE_DIR)/%=$(BUILD_DIR)/%.o)
 
-INCLUDE_DIR := include/
+INCLUDE_DIR := include
 INCLUDES := -I $(INCLUDE_DIR)
 WARNINGS := -Werror -Wall -Wpedantic
 
-FLAGS := $(INCLUDES)
-FLAGS += $(WARNINGS)
+CFLAGS := $(INCLUDES)
+CFLAGS += $(WARNINGS)
+CFLAGS += -g
 
 all: $(BUILD_DIR)/$(TARGET)
 	@$(BUILD_DIR)/$(TARGET)
 
-$(BUILD_DIR)/$(TARGET): $(OBJS)
-	@$(CC) $(OBJS) -o $@
+$(BUILD_DIR)/$(TARGET): $(SUBDIRS) $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) -o $@
 
-$(BUILD_DIR)/%.c.o: %.c
+.PHONY: parser
+parser:
+	$(MAKE) -C $(SOURCE_DIR)/parser
+
+$(BUILD_DIR)/%.c.o: $(SOURCE_DIR)/%.c
 	@mkdir -p $(dir $@)
-	@$(CC) $(FLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
 
 .PHONY: clean
-clean:
-	/bin/rm -r $(BUILD_DIR)
+clean: clean-subdirs
+	rm -r $(BUILD_DIR)
+
+clean-subdirs:
+	make -C $(SOURCE_DIR)/parser clean
+
