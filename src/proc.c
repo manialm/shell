@@ -6,7 +6,11 @@
 
 proc *proc_new() {
     proc *p = malloc(sizeof(*p));
-    
+    if (p == NULL){
+        perror(__FILE__ "-> malloc failed");
+        return NULL;
+    }
+
     p->stdin_fd = STDIN_FILENO;
     p->stdout_fd = STDOUT_FILENO;
     p->argv = NULL;

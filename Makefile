@@ -11,11 +11,11 @@ OBJS = $(SRCS:$(SOURCE_DIR)/%=$(BUILD_DIR)/%.o)
 
 INCLUDE_DIR := include
 INCLUDES := -I $(INCLUDE_DIR)
-WARNINGS := -Werror -Wall -Wpedantic
+WARNINGS := -Werror -Wall #-Wpedantic
 
 CFLAGS := $(INCLUDES)
 CFLAGS += $(WARNINGS)
-CFLAGS += -g
+CFLAGS += -g -std=gnu17
 
 all: $(BUILD_DIR)/$(TARGET)
 	@$(BUILD_DIR)/$(TARGET)
