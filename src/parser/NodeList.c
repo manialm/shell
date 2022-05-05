@@ -21,10 +21,7 @@ void node_list_append(NodeList *this, Node *node) {
         this->data = realloc(this->data, sizeof(*this->data) * this->cap);
     }
 
-    Node *new_node = this->data[this->size] = malloc(sizeof(*node));
-    new_node->type = node->type;
-    new_node->value = node->value;
-    new_node->child_list = node->child_list;
+    this->data[this->size] = node;
 
     this->size++;
     this->data[this->size] = NULL;
