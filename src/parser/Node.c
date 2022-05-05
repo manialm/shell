@@ -2,9 +2,16 @@
 #include <parser/NodeList.h>
 #include <string.h>
 #include <stdlib.h>
+#include <stdio.h>
+#include <assert.h>
+
 
 static Node *node_new() {
     Node *node = malloc(sizeof(*node));
+    if (node == NULL) {
+        perror(__FILE__ "-> malloc failed");
+        return NULL;
+    }
 
     node->type = VALUE;
     node->value = 0;
@@ -16,6 +23,7 @@ static Node *node_new() {
 
 Node *node_new_value(char *value) {
     Node *node = node_new();
+    assert(node != NULL);
 
     node->type = VALUE;
     node->value = strdup(value);
@@ -25,6 +33,7 @@ Node *node_new_value(char *value) {
 
 Node *node_new_type(Type type) {
     Node *node = node_new();
+    assert(node != NULL);
 
     node->type = type;
 
@@ -33,6 +42,7 @@ Node *node_new_type(Type type) {
 
 Node *node_new_single(Type type, Node *child) {
     Node *node = node_new();
+    assert(node != NULL);
 
     node->type = type;
     node_add_child(node, child);
@@ -42,6 +52,7 @@ Node *node_new_single(Type type, Node *child) {
 
 Node *node_new_pair(Type type, Node *left, Node *right) {
     Node *node = node_new();
+    assert(node != NULL);
 
     node->type = type;
     node_add_child(node, left);
@@ -52,6 +63,7 @@ Node *node_new_pair(Type type, Node *left, Node *right) {
 
 Node *node_add_child(Node *this, Node *child) {
     node_list_append(this->child_list, child);
+    // FIXME: what do I return?????????????????????????????????
 }
 
 void node_destroy(Node *node) {

@@ -6,10 +6,19 @@
 
 NodeList *node_list_new(void) {
     NodeList *this = malloc(sizeof(*this));
+    if (this == NULL) {
+        perror(__FILE__ "-> malloc failed");
+        return NULL;
+    }
 
     this->cap = 4;
     this->size = 0;
-    this->data = malloc(sizeof(*this->data) * this->cap);
+    void* maybe_ptr = malloc(sizeof(*this->data) * this->cap);
+    if (maybe_ptr == NULL) {
+        perror(__FILE__ "-> malloc failed");
+        return NULL;
+    }
+    this->data = maybe_ptr;
 
     return this;
 }
@@ -22,6 +31,10 @@ void node_list_append(NodeList *this, Node *node) {
     }
 
     Node *new_node = this->data[this->size] = malloc(sizeof(*node));
+    if (new_node == NULL) {
+        perror(__FILE__ "-> malloc failed");
+        return;
+    }
     new_node->type = node->type;
     new_node->value = node->value;
     new_node->child_list = node->child_list;
@@ -41,7 +54,13 @@ void node_list_pop(NodeList *this) {
 
     if (this->size < this->cap / 2) {
         this->cap /= 2;
-        this->data = realloc(this->data, sizeof(*this->data) * this->cap);
+
+        void *maybe_ptr = realloc(this->data, sizeof(*this->data) * this->cap);
+        if (maybe_ptr == NULL) {
+            perror(__FILE__ "-> malloc failed");
+            return;
+        }
+        this->data = maybe_ptr;
     }
 }
 

@@ -15,7 +15,14 @@ void show_prompt() {
 }
 
 void get_comm(char comm[]) {
-    fgets(comm, MAXLEN, stdin);
+    int first = getc(stdin);
+
+    if (first == EOF)
+        exit(0);
+
+    comm[0] = first;
+    fgets(comm + 1, MAXLEN - 1, stdin);
+
     comm[strcspn(comm, "\n")] = 0;
 }
 
