@@ -21,7 +21,7 @@
 %%
 
 [ \r\n\t]*   { continue; /* Skip blanks. */ }
-[a-zA-Z0-9\-\.\/]+       { yylval->value = strdup(yytext); return TOKEN_STRING; }
+[a-zA-Z0-9\-\.\/=]+       { yylval->value = strdup(yytext); return TOKEN_STRING; }
 
 "|"          { return TOKEN_PIPE; }
 "<"          { return TOKEN_REDIRECT_IN; }

@@ -6,4 +6,4 @@ old/
 *.out
 *.pdf
 
-test.c
+test*.c

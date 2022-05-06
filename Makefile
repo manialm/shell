@@ -29,7 +29,6 @@ parser:
 
 $(BUILD_DIR)/%.c.o: $(SOURCE_DIR)/%.c
 	@mkdir -p $(dir $@)
-	@echo these are objs $(OBJS)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 .PHONY: clean
