@@ -10,8 +10,9 @@ typedef struct proc {
 } proc;
 
 proc *proc_new();
-proc *proc_from_node(Node *node);
+void proc_from_node(proc *p, Node *node);
 void proc_execute(proc *p);
 void proc_execute_first(proc *p);
 void proc_execute_middle(proc *p);
 void proc_execute_last(proc *p);
+void proc_destroy(proc *p);

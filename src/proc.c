@@ -13,17 +13,20 @@ proc *proc_new() {
     return p;
 }
 
-proc *proc_from_node(Node *node) {
-    proc *p = proc_new();
+void proc_from_node(proc *p, Node *node) {
 
     Node *command = node->child_list->data[0];
     char *command_name = command->child_list->data[0]->value;
     
     char **argv;
 
+    size_t n_argv;
+
     if (command->child_list->size > 1) {
         Node *command_args = command->child_list->data[1];
-        size_t n_argv = command_args->child_list->size + 1;
+
+        // + 2: 1 for command_name and 1 for NULL
+        n_argv = command_args->child_list->size + 2;
         
         argv = malloc(sizeof(*argv) * n_argv);
 
@@ -31,13 +34,13 @@ proc *proc_from_node(Node *node) {
             argv[i + 1] = command_args->child_list->data[i]->value;
         }
     } else {
-        argv = malloc(sizeof(*argv) * 1);
+        n_argv = 2;
+        argv = malloc(sizeof(*argv) * n_argv);
     }
 
     argv[0] = command_name;
+    argv[n_argv - 1] = NULL;
     p->argv = argv;
-
-    return p;
 }
 
 void proc_execute(proc *p) {
@@ -108,4 +111,12 @@ void proc_execute_last(proc *p) {
         close(p->pipefd2[0]);
         close(p->pipefd2[1]);
     }
+}
+
+void proc_destroy(proc *p) {
+    if (p->argv)
+        free(p->argv);
+
+    if (p)
+        free(p);
 }

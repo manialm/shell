@@ -9,7 +9,8 @@ void execute(char input[]) {
     size_t n = child_list->size;
 
 
-    proc *p = proc_from_node(child_list->data[0]);
+    proc *p = proc_new();
+    proc_from_node(p, child_list->data[0]);
 
     if (n == 1) {
         proc_execute(p);
@@ -27,7 +28,7 @@ void execute(char input[]) {
 
     for (int i = 1; i < n - 1; i++) {
         pipe(pipefd2);
-        p = proc_from_node(child_list->data[i]);
+        proc_from_node(p, child_list->data[i]);
 
         p->pipefd = pipefd;
         p->pipefd2 = pipefd2;
@@ -39,11 +40,14 @@ void execute(char input[]) {
         pipefd[1] = pipefd2[1];
     }
 
-    p = proc_from_node(child_list->data[n - 1]);
+    proc_from_node(p, child_list->data[n - 1]);
     p->pipefd2 = pipefd;
     proc_execute_last(p);
 
     for (int i = 0; i < n; i++) {
         wait(NULL);
     }
+
+    node_destroy(root);
+    proc_destroy(p);
 }
