@@ -50,7 +50,7 @@ Node *node_new_pair(Type type, Node *left, Node *right) {
     return node;
 }
 
-Node *node_add_child(Node *this, Node *child) {
+void node_add_child(Node *this, Node *child) {
     node_list_append(this->child_list, child);
 }
 
