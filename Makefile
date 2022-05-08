@@ -18,6 +18,8 @@ CFLAGS += $(WARNINGS)
 CFLAGS += -g
 
 all: $(BUILD_DIR)/$(TARGET)
+
+run: all
 	@$(BUILD_DIR)/$(TARGET)
 
 $(BUILD_DIR)/$(TARGET): $(SUBDIRS) $(OBJS)
