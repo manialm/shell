@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <parser/NodeList.h>
+#include <sh_execvp.h>
 
 proc *proc_new() {
     proc *p = malloc(sizeof(*p));
@@ -47,7 +48,7 @@ void proc_execute(proc *p) {
     pid_t pid = fork();
 
     if (pid == 0) {
-        execvp(p->argv[0], p->argv);
+        sh_execvp(p->argv[0], p->argv);
     }
 
     else if (pid < 0) {
@@ -63,7 +64,7 @@ void proc_execute_first(proc *p) {
         dup2(p->pipefd[1], STDOUT_FILENO);
         close(p->pipefd[1]);
 
-        execvp(p->argv[0], p->argv);
+        sh_execvp(p->argv[0], p->argv);
     }
 
     else if (pid < 0) {
@@ -83,7 +84,7 @@ void proc_execute_middle(proc *p) {
         dup2(p->pipefd2[1], STDOUT_FILENO);
         close(p->pipefd2[1]);
 
-        execvp(p->argv[0], p->argv);
+        sh_execvp(p->argv[0], p->argv);
     }
 
     else if (pid > 0) {
@@ -104,7 +105,7 @@ void proc_execute_last(proc *p) {
         dup2(p->pipefd2[0], STDIN_FILENO);
         close(p->pipefd2[0]);
 
-        execvp(p->argv[0], p->argv);
+        sh_execvp(p->argv[0], p->argv);
     }
     
     else {
