@@ -1,6 +1,7 @@
 #include <builtins/pwd.h>
 #include <unistd.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 void pwd(char *name, char *argv[]) {
     if (argv[1] != NULL) {
@@ -10,4 +11,5 @@ void pwd(char *name, char *argv[]) {
 
     char *path = getcwd(NULL, 0);
     printf("%s\n", path);
+    free(path);
 }
