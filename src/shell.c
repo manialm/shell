@@ -1,7 +1,6 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <stdbool.h>
-#include <sys/wait.h>
 #include <string.h>
 
 #include <parser/ast.h>
