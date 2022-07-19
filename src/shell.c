@@ -7,28 +7,28 @@
 #include <exec.h>
 #include <color.h>
 
-const int MAXLEN = 1024;
+#define MAXLEN 1024
 
 void show_prompt() {
     PRINT_COLOR(BLUE, "$ ");
 }
 
-void get_comm(char comm[]) {
-    fgets(comm, MAXLEN, stdin);
-    comm[strcspn(comm, "\n")] = 0;
+void get_command(char command[]) {
+    fgets(command, MAXLEN, stdin);
+    command[strcspn(command, "\n")] = 0;
 }
 
-void exec_comm(char comm[]) {
-    execute(comm);
+void exec_command(char command[]) {
+    execute(command);
 }
 
 int main() {
 
-    char comm[MAXLEN];
+    char command[MAXLEN];
 
     while (true) {
         show_prompt();
-        get_comm(comm);
-        exec_comm(comm);
+        get_command(command);
+        exec_command(command);
     }
 }
