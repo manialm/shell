@@ -21,7 +21,7 @@ Lexer.c: Lexer.l
 
 Parser.c: Parser.y Lexer.c
 	@bison --header=$(INCLUDE_DIR)/parser/Parser.h -o Parser.c Parser.y
-	@# ugly fix to bison's stupidity
+	@# ugly fix for bison's stupidity
 	@sed -i 's/#include "Parser.h"/#include <parser\/Parser.h>/' Parser.c
 
 
@@ -30,4 +30,4 @@ $(BUILD_DIR)/%.c.o: %.c
 	@$(CC) -c $(CFLAGS) $< -o $@
 
 clean:
-	@rm -rf $(LEXER_TARGETS) $(PARSER_TARGETS) $(BUILD_DIR)
+	@$(RM) -rf $(LEXER_TARGETS) $(PARSER_TARGETS) $(BUILD_DIR)
