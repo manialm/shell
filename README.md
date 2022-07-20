@@ -6,6 +6,7 @@ Simple Unix shell written in C
 # How to run
 ```sh
 git clone https://github.com/manialm/shell
+cd shell
 make run
 ```
 ---
