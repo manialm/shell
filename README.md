@@ -2,6 +2,11 @@
 Simple Unix shell written in C
 
 ---
+# Demo
+
+[video](https://github.com/user-attachments/assets/8a1e6153-555b-4c4c-abee-17d60a6ad3df)
+
+---
 
 # How to run
 ```sh
